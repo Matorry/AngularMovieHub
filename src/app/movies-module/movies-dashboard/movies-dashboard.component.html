@@ -1,4 +1,4 @@
-<app-now-playing></app-now-playing>
-<app-popular-movies></app-popular-movies>
-<app-top-rating></app-top-rating>
-<app-upcoming-movies></app-upcoming-movies>
+<ul *ngFor="let movies of movieList">
+  <h2>{{titles[movieList.indexOf(movies)]}}</h2>
+  <app-list [movies]="movies.results"></app-list>
+</ul>

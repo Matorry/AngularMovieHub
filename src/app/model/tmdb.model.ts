@@ -15,6 +15,11 @@ export type Movie = {
   vote_count: number;
 };
 
+export type Genre = {
+  id: number;
+  name: string;
+};
+
 type Dates = {
   maximum: string;
   minimum: string;

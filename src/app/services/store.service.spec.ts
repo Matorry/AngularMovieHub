@@ -1,4 +1,4 @@
-import { Req, ReqWithDates } from '../model/tmdb.model';
+import { Genre, ReqWithDates } from '../model/tmdb.model';
 import { StoreService } from './store.service';
 
 describe('Given the StoreService class', () => {
@@ -8,63 +8,33 @@ describe('Given the StoreService class', () => {
     storeService = new StoreService();
   });
 
-  it('Then it should be created', () => {
-    expect(storeService).toBeTruthy();
-  });
-
   describe('When retrieving State', () => {
-    it('Then should get Now Playing state', () => {
-      const nowPlayingState = storeService.getNowPlayingState();
+    it('Then should getGenres state', () => {
+      const nowPlayingState = storeService.getGenres();
       expect(nowPlayingState).toBeTruthy();
     });
 
-    it('Then should get Popular state', () => {
-      const popularState = storeService.getPopularState();
+    it('Then should getMovieList state', () => {
+      const popularState = storeService.getMovieList();
       expect(popularState).toBeTruthy();
-    });
-
-    it('Then should get Top Rating state', () => {
-      const topRatingState = storeService.getTopRatingState();
-      expect(topRatingState).toBeTruthy();
-    });
-
-    it('Then should get Upcoming state', () => {
-      const upcomingState = storeService.getUpcomingState();
-      expect(upcomingState).toBeTruthy();
     });
   });
 
   describe('When updating State', () => {
-    it('Then should update Now Playing state', () => {
+    it('Then should setGenres state', () => {
       const mockData = {} as unknown as ReqWithDates;
-      storeService.updateNowPlayingState(mockData);
+      storeService.setGenres([{} as Genre]);
 
-      const nowPlayingState = storeService.getNowPlayingState().getValue();
-      expect(nowPlayingState).toEqual(mockData);
+      const nowPlayingState = storeService.getGenres().getValue();
+      expect(nowPlayingState).toEqual([{} as Genre]);
     });
 
-    it('Then should update Popular state', () => {
-      const mockData = {} as unknown as Req;
-      storeService.updatePopularState(mockData);
-
-      const popularState = storeService.getPopularState().getValue();
-      expect(popularState).toEqual(mockData);
-    });
-
-    it('Then should update Top Rating state', () => {
-      const mockData = {} as unknown as Req;
-      storeService.updateTopRatingState(mockData);
-
-      const topRatingState = storeService.getTopRatingState().getValue();
-      expect(topRatingState).toEqual(mockData);
-    });
-
-    it('Then should update Upcoming state', () => {
+    it('Then should setMovieList state', () => {
       const mockData = {} as unknown as ReqWithDates;
-      storeService.updateUpcomingState(mockData);
+      storeService.setMovieList(mockData);
 
-      const upcomingState = storeService.getUpcomingState().getValue();
-      expect(upcomingState).toEqual(mockData);
+      const popularState = storeService.getMovieList().getValue();
+      expect(popularState).toEqual([mockData]);
     });
   });
 });
