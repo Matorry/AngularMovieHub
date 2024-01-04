@@ -57,12 +57,4 @@ export class TmdbRepoService {
       },
     }) as Observable<Movie>;
   }
-
-  getImage(url: string): Observable<any> {
-    return this.http.get(url, {
-      headers: {
-        ['Authorization']: `Bearer ${this.token}`,
-      },
-    }) as Observable<any>;
-  }
 }

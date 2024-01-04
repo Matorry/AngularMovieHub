@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Movie, ReqWithDates } from 'src/app/model/tmdb.model';
 import { MoviesService } from 'src/app/services/movies.service';
 import { StoreService } from 'src/app/services/store.service';
+import { CardComponent } from '../card/card.component';
+import { ListComponent } from '../list/list.component';
 import { NowPlayingComponent } from './now-playing.component';
 
 describe('Given the UpcomingMoviesComponent class', () => {
@@ -13,7 +15,7 @@ describe('Given the UpcomingMoviesComponent class', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NowPlayingComponent],
+      declarations: [NowPlayingComponent, ListComponent, CardComponent],
       imports: [HttpClientTestingModule],
       providers: [StoreService, MoviesService],
     });

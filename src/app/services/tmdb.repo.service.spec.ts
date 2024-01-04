@@ -125,20 +125,5 @@ describe('Given the TmdbRepoService Class', () => {
       expect(req.request.method).toEqual('GET');
       req.flush(mockResponse);
     });
-
-    it('Then it should retrieve images by ID', () => {
-      const id = '123';
-      const mockResponse: Movie = {} as unknown as Movie;
-
-      service.getImage(id).subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
-
-      const req = httpTestingController.expectOne((request) =>
-        request.url.includes(`/${id}/images`)
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(mockResponse);
-    });
   });
 });

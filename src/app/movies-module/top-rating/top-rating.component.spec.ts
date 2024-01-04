@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Movie, Req } from 'src/app/model/tmdb.model';
 import { MoviesService } from 'src/app/services/movies.service';
 import { StoreService } from 'src/app/services/store.service';
+import { CardComponent } from '../card/card.component';
+import { ListComponent } from '../list/list.component';
 import { TopRatingComponent } from './top-rating.component';
 
 describe('Given the TopRatingComponent class', () => {
@@ -13,7 +15,7 @@ describe('Given the TopRatingComponent class', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TopRatingComponent],
+      declarations: [TopRatingComponent, ListComponent, CardComponent],
       imports: [HttpClientTestingModule],
       providers: [StoreService, MoviesService],
     });

@@ -5,7 +5,7 @@ import { MoviesService } from './movies.service';
 import { StoreService } from './store.service';
 import { TmdbRepoService } from './tmdb.repo.service';
 
-describe('MoviesService', () => {
+describe('Given the class MoviesService', () => {
   let moviesService: MoviesService;
   let tmdbRepoService: jasmine.SpyObj<TmdbRepoService>;
   let storeService: jasmine.SpyObj<StoreService>;
@@ -39,105 +39,91 @@ describe('MoviesService', () => {
     storeService = TestBed.inject(StoreService) as jasmine.SpyObj<StoreService>;
   });
 
-  describe('Given the MoviesService', () => {
-    it('Then should be created', () => {
-      expect(moviesService).toBeTruthy();
+  describe('When fetching Now Playing movies', () => {
+    it('Then should request with default page 1 and update the store', () => {
+      const mockData = {} as ReqWithDates;
+      tmdbRepoService.getNowPlaying.and.returnValue(of(mockData));
+
+      moviesService.fetchNowPlaying();
+
+      expect(tmdbRepoService.getNowPlaying).toHaveBeenCalledWith('1');
+      expect(storeService.updateNowPlayingState).toHaveBeenCalledWith(mockData);
     });
 
-    describe('When fetching Now Playing movies', () => {
-      it('Then should request with default page 1 and update the store', () => {
-        const mockData = {} as ReqWithDates;
-        tmdbRepoService.getNowPlaying.and.returnValue(of(mockData));
+    it('Then should request with custom page and update the store', () => {
+      const mockData = {} as ReqWithDates;
+      tmdbRepoService.getNowPlaying.and.returnValue(of(mockData));
 
-        moviesService.fetchNowPlaying();
+      moviesService.fetchNowPlaying('2');
 
-        expect(tmdbRepoService.getNowPlaying).toHaveBeenCalledWith('1');
-        expect(storeService.updateNowPlayingState).toHaveBeenCalledWith(
-          mockData
-        );
-      });
+      expect(tmdbRepoService.getNowPlaying).toHaveBeenCalledWith('2');
+      expect(storeService.updateNowPlayingState).toHaveBeenCalledWith(mockData);
+    });
+  });
 
-      it('Then should request with custom page and update the store', () => {
-        const mockData = {} as ReqWithDates;
-        tmdbRepoService.getNowPlaying.and.returnValue(of(mockData));
+  describe('When fetching Popular movies', () => {
+    it('Then should request with default page 1 and update the store', () => {
+      const mockData = {} as unknown as Req;
+      tmdbRepoService.getPopular.and.returnValue(of(mockData));
 
-        moviesService.fetchNowPlaying('2');
+      moviesService.fetchPopular();
 
-        expect(tmdbRepoService.getNowPlaying).toHaveBeenCalledWith('2');
-        expect(storeService.updateNowPlayingState).toHaveBeenCalledWith(
-          mockData
-        );
-      });
+      expect(tmdbRepoService.getPopular).toHaveBeenCalledWith('1');
+      expect(storeService.updatePopularState).toHaveBeenCalledWith(mockData);
     });
 
-    describe('When fetching Popular movies', () => {
-      it('Then should request with default page 1 and update the store', () => {
-        const mockData = {} as unknown as Req;
-        tmdbRepoService.getPopular.and.returnValue(of(mockData));
+    it('Then should request with custom page and update the store', () => {
+      const mockData = {} as unknown as Req;
+      tmdbRepoService.getPopular.and.returnValue(of(mockData));
 
-        moviesService.fetchPopular();
+      moviesService.fetchPopular('2');
 
-        expect(tmdbRepoService.getPopular).toHaveBeenCalledWith('1');
-        expect(storeService.updatePopularState).toHaveBeenCalledWith(mockData);
-      });
+      expect(tmdbRepoService.getPopular).toHaveBeenCalledWith('2');
+      expect(storeService.updatePopularState).toHaveBeenCalledWith(mockData);
+    });
+  });
 
-      it('Then should request with custom page and update the store', () => {
-        const mockData = {} as unknown as Req;
-        tmdbRepoService.getPopular.and.returnValue(of(mockData));
+  describe('When fetching Top Rating movies', () => {
+    it('Then should request with default page 1 and update the store', () => {
+      const mockData = {} as unknown as Req;
+      tmdbRepoService.getTopRating.and.returnValue(of(mockData));
 
-        moviesService.fetchPopular('2');
+      moviesService.fetchTopRating();
 
-        expect(tmdbRepoService.getPopular).toHaveBeenCalledWith('2');
-        expect(storeService.updatePopularState).toHaveBeenCalledWith(mockData);
-      });
+      expect(tmdbRepoService.getTopRating).toHaveBeenCalledWith('1');
+      expect(storeService.updateTopRatingState).toHaveBeenCalledWith(mockData);
     });
 
-    describe('When fetching Top Rating movies', () => {
-      it('Then should request with default page 1 and update the store', () => {
-        const mockData = {} as unknown as Req;
-        tmdbRepoService.getTopRating.and.returnValue(of(mockData));
+    it('Then should request with custom page and update the store', () => {
+      const mockData = {} as unknown as Req;
+      tmdbRepoService.getTopRating.and.returnValue(of(mockData));
 
-        moviesService.fetchTopRating();
+      moviesService.fetchTopRating('2');
 
-        expect(tmdbRepoService.getTopRating).toHaveBeenCalledWith('1');
-        expect(storeService.updateTopRatingState).toHaveBeenCalledWith(
-          mockData
-        );
-      });
+      expect(tmdbRepoService.getTopRating).toHaveBeenCalledWith('2');
+      expect(storeService.updateTopRatingState).toHaveBeenCalledWith(mockData);
+    });
+  });
 
-      it('Then should request with custom page and update the store', () => {
-        const mockData = {} as unknown as Req;
-        tmdbRepoService.getTopRating.and.returnValue(of(mockData));
+  describe('When fetching Upcoming movies', () => {
+    it('Then should request with default page 1 and update the store', () => {
+      const mockData = {} as ReqWithDates;
+      tmdbRepoService.getUpcomming.and.returnValue(of(mockData));
 
-        moviesService.fetchTopRating('2');
+      moviesService.fetchUpcoming();
 
-        expect(tmdbRepoService.getTopRating).toHaveBeenCalledWith('2');
-        expect(storeService.updateTopRatingState).toHaveBeenCalledWith(
-          mockData
-        );
-      });
+      expect(tmdbRepoService.getUpcomming).toHaveBeenCalledWith('1');
+      expect(storeService.updateUpcomingState).toHaveBeenCalledWith(mockData);
     });
 
-    describe('When fetching Upcoming movies', () => {
-      it('Then should request with default page 1 and update the store', () => {
-        const mockData = {} as ReqWithDates;
-        tmdbRepoService.getUpcomming.and.returnValue(of(mockData));
+    it('Then should request with custom page and update the store', () => {
+      const mockData = {} as ReqWithDates;
+      tmdbRepoService.getUpcomming.and.returnValue(of(mockData));
 
-        moviesService.fetchUpcoming();
+      moviesService.fetchUpcoming('2');
 
-        expect(tmdbRepoService.getUpcomming).toHaveBeenCalledWith('1');
-        expect(storeService.updateUpcomingState).toHaveBeenCalledWith(mockData);
-      });
-
-      it('Then should request with custom page and update the store', () => {
-        const mockData = {} as ReqWithDates;
-        tmdbRepoService.getUpcomming.and.returnValue(of(mockData));
-
-        moviesService.fetchUpcoming('2');
-
-        expect(tmdbRepoService.getUpcomming).toHaveBeenCalledWith('2');
-        expect(storeService.updateUpcomingState).toHaveBeenCalledWith(mockData);
-      });
+      expect(tmdbRepoService.getUpcomming).toHaveBeenCalledWith('2');
+      expect(storeService.updateUpcomingState).toHaveBeenCalledWith(mockData);
     });
   });
 });
