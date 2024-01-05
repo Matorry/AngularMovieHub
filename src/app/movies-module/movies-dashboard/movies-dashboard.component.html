@@ -1,4 +1,3 @@
 <ul *ngFor="let movies of movieList">
-  <h2>{{titles[movieList.indexOf(movies)]}}</h2>
-  <app-list [movies]="movies.results"></app-list>
+  <app-list [movies]="movies.results" [title]="titles[movieList.indexOf(movies)]"></app-list>
 </ul>

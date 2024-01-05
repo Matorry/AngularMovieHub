@@ -1,13 +1,11 @@
 ul {
-  padding-top: 1rem;
   display: flex;
   align-items: center;
-  height: 350px;
-  width: 95vw;
+  height: 450px;
+  width: 80vw;
   max-width: 1024px;
   overflow-x: scroll;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
   gap: 0.5rem;
-  margin-inline: 2.5vw;
 }

@@ -1,3 +1,7 @@
-<li [ngStyle]="{ 'background-image': 'url(' + getImageUrl(movie?.poster_path!, 200) + ')' }">
-
+<li>
+  <img src="{{getImageUrl(movie?.poster_path!, 200)}}" alt="Movie poster">
+  <div>
+    <h3>{{movie?.title}}</h3>
+    <span>{{movie?.release_date}}</span>
+  </div>
 </li>

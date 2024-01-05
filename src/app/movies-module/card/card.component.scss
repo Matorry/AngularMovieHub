@@ -1,8 +1,32 @@
 li {
-  height: 295px;
+  height: 380px;
   width: 200px;
   border-radius: 20px;
   position: relative;
   scroll-snap-align: center;
   list-style: none;
+  background-color: rgb(61, 61, 61);
+
+  img {
+    border-radius: 20px 20px 0px 0px;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-inline-start: 1rem;
+    height: 70px;
+    border-radius: 20px;
+    h3 {
+      font-size: 1rem;
+    }
+    span {
+      font-size: 0.9rem;
+      width: 90%;
+    }
+  }
+}
+:hover {
+  transition: transform 0.2s;
+  background-color: rgb(92, 92, 92);
 }

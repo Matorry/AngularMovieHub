@@ -8,4 +8,5 @@ import { Movie } from 'src/app/model/tmdb.model';
 })
 export class ListComponent {
   @Input() movies: Movie[] = [];
+  @Input() title: string = '';
 }

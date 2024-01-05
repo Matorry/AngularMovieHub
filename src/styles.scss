@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 1rem;
+  background-color: rgb(41, 41, 41);
+  color: antiquewhite;
+}
+
+*::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(61, 61, 61);
+  border-radius: 20px;
+}
+*::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: rgb(92, 92, 92);
+  border-radius: 20px;
+}

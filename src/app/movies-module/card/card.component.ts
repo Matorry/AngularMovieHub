@@ -9,6 +9,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 })
 export class CardComponent {
   @Input() movie: Movie | null = null;
+  @Input() premiere: string = '';
   constructor(private service: MoviesService) {}
   getImageUrl(backdropPath: string | null, w: number): string {
     if (backdropPath) {
