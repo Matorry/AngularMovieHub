@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, concat } from 'rxjs';
 import { ReqWithDates } from 'src/app/model/tmdb.model';
 import { DictionaryService } from 'src/app/services/dictionary.service';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -14,6 +14,7 @@ export class MoviesDashboardComponent {
   movieList: ReqWithDates[] = [];
   storeSubscription: Subscription = Subscription.EMPTY;
   titles: string[] = [];
+  popularMovies: ReqWithDates | undefined;
 
   constructor(
     private movieService: MoviesService,
@@ -24,9 +25,16 @@ export class MoviesDashboardComponent {
   ngOnInit() {
     this.titles = this.dictionaryService.getKeys();
     const movieRoutes = Object.values(this.dictionaryService.dictionary);
-    movieRoutes.forEach((route) => this.movieService.fetchMoviesList(route));
-    this.storeSubscription = this.store.getMovieList().subscribe((data) => {
-      this.movieList = data;
+
+    const observables = movieRoutes.map((route) =>
+      this.movieService.fetchMoviesList(route)
+    );
+
+    concat(...observables).subscribe(() => {
+      this.storeSubscription = this.store.getMovieList().subscribe((data) => {
+        this.popularMovies = data[0];
+        this.movieList = data.slice(1);
+      });
     });
   }
 

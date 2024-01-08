@@ -1,0 +1,7 @@
+<article *ngIf="movie" class="background-container">
+  <div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="background-image"></div>
+  <h3>{{ movie.title }}</h3>
+  <img [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : 'path-to-default-image'"
+    alt="{{ movie.title }}">
+  <p>{{ movie.overview }}</p>
+</article>

@@ -2,10 +2,10 @@ ul {
   display: flex;
   align-items: center;
   height: 450px;
-  width: 80vw;
+  width: 90vw;
   max-width: 1024px;
   overflow-x: scroll;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
-  gap: 0.5rem;
+  gap: 1rem;
 }

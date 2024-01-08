@@ -1,3 +1,5 @@
-<ul *ngFor="let movies of movieList">
-  <app-list [movies]="movies.results" [title]="titles[movieList.indexOf(movies)]"></app-list>
+<ul>
+  <app-list-popular *ngIf="popularMovies" [movies]="popularMovies.results" [title]="titles[0]"></app-list-popular>
+  <app-list *ngFor=" let movies of movieList" [movies]="movies.results"
+    [title]="titles[movieList.indexOf(movies)+1]"></app-list>
 </ul>

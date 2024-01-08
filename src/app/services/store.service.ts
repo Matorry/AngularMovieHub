@@ -12,8 +12,6 @@ export class StoreService {
   private moviesCategories$: BehaviorSubject<ReqWithDates[]> =
     new BehaviorSubject([] as ReqWithDates[]);
 
-  constructor() {}
-
   getGenres(): BehaviorSubject<Genre[]> {
     return this.genres$;
   }

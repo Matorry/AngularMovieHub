@@ -1,0 +1,9 @@
+<app-card-popular [movie]="movies[counter]"></app-card-popular>
+<div class="navigation-container">
+  <span (click)="navigateToPrevious()">Previous</span>
+  <div class="circle-container">
+    <div *ngFor="let circle of circles; let i = index" class="circle" [ngClass]="{'current-circle': circle}"
+      (click)="loadMovie(i)"></div>
+  </div>
+  <span (click)="navigateToNext()">Next</span>
+</div>

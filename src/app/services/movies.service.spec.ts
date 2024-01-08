@@ -1,49 +1,99 @@
-import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { ReqWithDates } from '../model/tmdb.model';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Observable, of } from 'rxjs';
+import { Movie, ReqWithDates } from '../model/tmdb.model';
 import { MoviesService } from './movies.service';
 import { StoreService } from './store.service';
 import { TmdbRepoService } from './tmdb.repo.service';
 
-describe('Given the class MoviesService', () => {
+describe('Given an instance of MoviesService', () => {
   let moviesService: MoviesService;
-  let tmdbRepoService: jasmine.SpyObj<TmdbRepoService>;
-  let storeService: jasmine.SpyObj<StoreService>;
+  let tmdbRepoServiceSpy: jasmine.SpyObj<TmdbRepoService>;
+  let storeServiceSpy: jasmine.SpyObj<StoreService>;
 
   beforeEach(() => {
-    const tmdbRepoSpy = jasmine.createSpyObj('TmdbRepoService', [
+    tmdbRepoServiceSpy = jasmine.createSpyObj('TmdbRepoService', [
       'getMoviesList',
     ]);
-    const storeSpy = jasmine.createSpyObj('StoreService', [
-      'setMovieList',
-      'getMovieList',
-    ]);
+    storeServiceSpy = jasmine.createSpyObj('StoreService', ['setMovieList']);
 
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         MoviesService,
-        { provide: TmdbRepoService, useValue: tmdbRepoSpy },
-        { provide: StoreService, useValue: storeSpy },
+        { provide: TmdbRepoService, useValue: tmdbRepoServiceSpy },
+        { provide: StoreService, useValue: storeServiceSpy },
       ],
     });
 
     moviesService = TestBed.inject(MoviesService);
-    tmdbRepoService = TestBed.inject(
-      TmdbRepoService
-    ) as jasmine.SpyObj<TmdbRepoService>;
-    storeService = TestBed.inject(StoreService) as jasmine.SpyObj<StoreService>;
   });
 
-  describe('When fetching Movie list', () => {
-    it('Then should request with default page 1 and update the store', () => {
-      const mockData = {} as ReqWithDates;
+  describe('When fetching movies', () => {
+    it('Then should be created', () => {
+      expect(moviesService).toBeTruthy();
+    });
 
-      tmdbRepoService.getMoviesList.and.returnValue(of(mockData));
+    it('Then should fetch movies and set them in the store', fakeAsync(() => {
+      const mockMovies: ReqWithDates[] = [
+        {
+          dates: { maximum: '2', minimum: '1' },
+          page: 1,
+          results: [{} as Movie],
+          total_pages: 1,
+          total_results: 1,
+        },
+        {
+          dates: { maximum: '2', minimum: '1' },
+          page: 1,
+          results: [{} as Movie],
+          total_pages: 1,
+          total_results: 1,
+        },
+      ];
+      tmdbRepoServiceSpy.getMoviesList.and.returnValue(of(mockMovies[0]));
 
-      moviesService.fetchMoviesList('');
+      let result: void | null = null;
 
-      expect(tmdbRepoService.getMoviesList).toHaveBeenCalledWith('');
-      expect(storeService.setMovieList).toHaveBeenCalledWith(mockData);
+      moviesService.fetchMoviesList('path').subscribe((data) => {
+        result = data;
+      });
+
+      tick();
+
+      expect(result).toBeUndefined();
+
+      expect(storeServiceSpy.setMovieList).toHaveBeenCalledWith(mockMovies[0]);
+    }));
+
+    it('Then should handle errors and log them', fakeAsync(() => {
+      spyOn(console, 'error');
+      const mockError = new Error('Test error');
+      tmdbRepoServiceSpy.getMoviesList.and.returnValue(
+        new Observable((observer) => observer.error(mockError))
+      );
+
+      let result: void | null = null;
+
+      moviesService.fetchMoviesList('path').subscribe({
+        next: () => {},
+        error: (error) => {
+          result = error;
+        },
+      });
+
+      tick();
+
+      expect(result).toBeNull();
+
+      expect(console.error).toHaveBeenCalledWith(
+        'Error fetching movies:',
+        mockError
+      );
+    }));
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
     });
   });
 });
