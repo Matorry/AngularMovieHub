@@ -3,7 +3,7 @@ import { Subscription, concat } from 'rxjs';
 import { ReqWithDates } from 'src/app/model/tmdb.model';
 import { DictionaryService } from 'src/app/services/dictionary.service';
 import { MoviesService } from 'src/app/services/movies.service';
-import { StoreService } from 'src/app/services/store.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-movies-dashboard',
@@ -18,7 +18,7 @@ export class MoviesDashboardComponent {
 
   constructor(
     private movieService: MoviesService,
-    private store: StoreService,
+    private state: StateService,
     private dictionaryService: DictionaryService
   ) {}
 
@@ -31,7 +31,7 @@ export class MoviesDashboardComponent {
     );
 
     concat(...observables).subscribe(() => {
-      this.storeSubscription = this.store.getMovieList().subscribe((data) => {
+      this.storeSubscription = this.state.getMovieList().subscribe((data) => {
         this.popularMovies = data[0];
         this.movieList = data.slice(1);
       });

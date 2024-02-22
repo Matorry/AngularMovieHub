@@ -5,22 +5,22 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Movie } from 'src/app/model/tmdb.model';
-import { CardPopularComponent } from '../card-popular/card-popular.component';
-import { ListPopularComponent } from './list-popular.component';
+import { MovieCardCarousel } from '../card-carousel/card-carousel.component';
+import { MovieListCarousel } from './list-carousel.component';
 
-describe('Given the ListPopularComponent', () => {
-  let component: ListPopularComponent;
-  let fixture: ComponentFixture<ListPopularComponent>;
+describe('Given the MovieListCarousel', () => {
+  let component: MovieListCarousel;
+  let fixture: ComponentFixture<MovieListCarousel>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ListPopularComponent, CardPopularComponent],
+      declarations: [MovieListCarousel, MovieCardCarousel],
     });
-    fixture = TestBed.createComponent(ListPopularComponent);
+    fixture = TestBed.createComponent(MovieListCarousel);
     component = fixture.componentInstance;
   });
 
-  describe('When ListPopularComponent is created', () => {
+  describe('When MovieListCarousel is created', () => {
     it('Then should create', () => {
       spyOn(component, 'navigateToNext');
       component.ngOnInit();

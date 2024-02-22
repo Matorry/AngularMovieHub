@@ -1,21 +1,21 @@
 import { Genre, ReqWithDates } from '../model/tmdb.model';
-import { StoreService } from './store.service';
+import { StateService } from './state.service';
 
-describe('Given the StoreService class', () => {
-  let storeService: StoreService;
+describe('Given the StateService class', () => {
+  let stateService: StateService;
 
   beforeEach(() => {
-    storeService = new StoreService();
+    stateService = new StateService();
   });
 
   describe('When retrieving State', () => {
     it('Then should getGenres state', () => {
-      const nowPlayingState = storeService.getGenres();
+      const nowPlayingState = stateService.getGenres();
       expect(nowPlayingState).toBeTruthy();
     });
 
     it('Then should getMovieList state', () => {
-      const popularState = storeService.getMovieList();
+      const popularState = stateService.getMovieList();
       expect(popularState).toBeTruthy();
     });
   });
@@ -23,17 +23,17 @@ describe('Given the StoreService class', () => {
   describe('When updating State', () => {
     it('Then should setGenres state', () => {
       const mockData = {} as unknown as ReqWithDates;
-      storeService.setGenres([{} as Genre]);
+      stateService.setGenres([{} as Genre]);
 
-      const nowPlayingState = storeService.getGenres().getValue();
+      const nowPlayingState = stateService.getGenres().getValue();
       expect(nowPlayingState).toEqual([{} as Genre]);
     });
 
     it('Then should setMovieList state', () => {
       const mockData = {} as unknown as ReqWithDates;
-      storeService.setMovieList(mockData);
+      stateService.setMovieList(mockData);
 
-      const popularState = storeService.getMovieList().getValue();
+      const popularState = stateService.getMovieList().getValue();
       expect(popularState).toEqual([mockData]);
     });
   });

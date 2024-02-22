@@ -5,7 +5,7 @@ import { Genre, ReqWithDates } from '../model/tmdb.model';
 @Injectable({
   providedIn: 'root',
 })
-export class StoreService {
+export class StateService {
   private genres$: BehaviorSubject<Genre[]> = new BehaviorSubject(
     [] as Genre[]
   );
