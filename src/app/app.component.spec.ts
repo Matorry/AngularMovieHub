@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
 import { MenuComponent } from './core/menu/menu.component';
 
@@ -9,7 +10,12 @@ describe('Given the AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [AppComponent, HeaderComponent, MenuComponent],
+      declarations: [
+        AppComponent,
+        HeaderComponent,
+        MenuComponent,
+        FooterComponent,
+      ],
     })
   );
 

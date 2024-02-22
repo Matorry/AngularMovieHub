@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Movie, ReqWithDates } from '../model/tmdb.model';
+import { Genre, Movie, ReqWithDates } from '../model/tmdb.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,12 @@ export class TmdbRepoService {
       },
     });
   }
-}
 
-// discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres={{genreID}}
+  getGenres(path: string): Observable<{ genres: Genre[] }> {
+    return this.http.get<{ genres: Genre[] }>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+}

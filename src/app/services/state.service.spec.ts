@@ -1,4 +1,4 @@
-import { Genre, ReqWithDates } from '../model/tmdb.model';
+import { ReqWithDates } from '../model/tmdb.model';
 import { StateService } from './state.service';
 
 describe('Given the StateService class', () => {
@@ -23,10 +23,12 @@ describe('Given the StateService class', () => {
   describe('When updating State', () => {
     it('Then should setGenres state', () => {
       const mockData = {} as unknown as ReqWithDates;
-      stateService.setGenres([{} as Genre]);
+      stateService.setGenres([{ name: 'Soy el path', path: 'soy/el/path' }]);
 
       const nowPlayingState = stateService.getGenres().getValue();
-      expect(nowPlayingState).toEqual([{} as Genre]);
+      expect(nowPlayingState).toEqual([
+        { name: 'Soy el path', path: 'soy/el/path' },
+      ]);
     });
 
     it('Then should setMovieList state', () => {
