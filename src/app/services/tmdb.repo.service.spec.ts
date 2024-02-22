@@ -4,7 +4,7 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { Movie, ReqWithDates } from '../model/tmdb.model';
+import { Genre, Movie, ReqWithDates } from '../model/tmdb.model';
 import { TmdbRepoService } from './tmdb.repo.service';
 
 describe('Given the TmdbRepoService Class', () => {
@@ -59,6 +59,21 @@ describe('Given the TmdbRepoService Class', () => {
 
       const req = httpTestingController.expectOne((request) =>
         request.url.includes(`/${id}`)
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    });
+
+    it('Then it should retrieve genres', () => {
+      const path = '123';
+      const mockResponse: { genres: Genre[] } = {} as { genres: Genre[] };
+
+      service.getGenres(path).subscribe((response) => {
+        expect(response).toEqual(mockResponse);
+      });
+
+      const req = httpTestingController.expectOne((request) =>
+        request.url.includes(`/${path}`)
       );
       expect(req.request.method).toEqual('GET');
       req.flush(mockResponse);

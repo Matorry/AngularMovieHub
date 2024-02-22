@@ -18,7 +18,11 @@ describe('Given the MoviesDashboardComponent', () => {
       'getKeys',
       'dictionary',
     ]);
-    movieService = jasmine.createSpyObj('MoviesService', ['fetchMoviesList']);
+    movieService = jasmine.createSpyObj('MoviesService', [
+      'fetchMoviesList',
+      'fetchGenders',
+      'fetchGenderMovies',
+    ]);
     stateService = jasmine.createSpyObj('StoreService', ['getMovieList']);
 
     TestBed.configureTestingModule({
@@ -62,11 +66,19 @@ describe('Given the MoviesDashboardComponent', () => {
       expect(component.popularMovies).toEqual(mockMovies[0]);
     });
 
+    it('Then should scroll down', () => {
+      movieService.fetchGenderMovies.and.returnValue(['']);
+
+      component.onScrollDown();
+
+      expect(movieService.fetchGenderMovies).toHaveBeenCalled();
+    });
+
     it('Then should unsubscribe on destroy', () => {
       const mockStoreSubscription = jasmine.createSpyObj('Subscription', [
         'unsubscribe',
       ]);
-      component.storeSubscription = mockStoreSubscription;
+      component.stateSubscription = mockStoreSubscription;
 
       component.ngOnDestroy();
 

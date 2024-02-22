@@ -10,6 +10,8 @@ export class DictionaryService {
     UPCOMING: 'movie/upcoming?language=en-US&page=1',
   };
 
+  public URI_GENRES = 'genre/movie/list?language=en';
+
   getKeys(): string[] {
     return Object.keys(this.dictionary).map((key) => this.transformKey(key));
   }

@@ -1,4 +1,4 @@
-<ul>
+<ul infiniteScroll (scrolled)="onScrollDown()">
   <app-list-carousel *ngIf="popularMovies" [movies]="popularMovies.results" [title]="titles[0]"></app-list-carousel>
   <app-list *ngFor=" let movies of movieList" [movies]="movies.results"
     [title]="titles[movieList.indexOf(movies)+1]"></app-list>

@@ -12,9 +12,10 @@ import { StateService } from 'src/app/services/state.service';
 })
 export class MoviesDashboardComponent {
   movieList: ReqWithDates[] = [];
-  storeSubscription: Subscription = Subscription.EMPTY;
+  stateSubscription: Subscription = Subscription.EMPTY;
   titles: string[] = [];
   popularMovies: ReqWithDates | undefined;
+  counter = 0;
 
   constructor(
     private movieService: MoviesService,
@@ -23,6 +24,8 @@ export class MoviesDashboardComponent {
   ) {}
 
   ngOnInit() {
+    this.movieService.fetchGenders();
+
     this.titles = this.dictionaryService.getKeys();
     const movieRoutes = Object.values(this.dictionaryService.dictionary);
 
@@ -31,16 +34,24 @@ export class MoviesDashboardComponent {
     );
 
     concat(...observables).subscribe(() => {
-      this.storeSubscription = this.state.getMovieList().subscribe((data) => {
+      this.stateSubscription = this.state.getMovieList().subscribe((data) => {
         this.popularMovies = data[0];
         this.movieList = data.slice(1);
       });
     });
   }
 
+  onScrollDown(): void {
+    this.titles = [
+      ...this.titles,
+      ...this.movieService.fetchGenderMovies(this.counter),
+    ];
+    this.counter += 4;
+  }
+
   ngOnDestroy() {
-    if (this.storeSubscription) {
-      this.storeSubscription.unsubscribe();
+    if (this.stateSubscription) {
+      this.stateSubscription.unsubscribe();
     }
   }
 }
