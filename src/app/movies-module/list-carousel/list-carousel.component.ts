@@ -2,11 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Movie } from 'src/app/model/tmdb.model';
 
 @Component({
-  selector: 'app-list-popular',
-  templateUrl: './list-popular.component.html',
-  styleUrls: ['./list-popular.component.scss'],
+  selector: 'app-list-carousel',
+  templateUrl: './list-carousel.component.html',
+  styleUrls: ['./list-carousel.component.scss'],
 })
-export class ListPopularComponent implements OnInit, OnDestroy {
+export class MovieListCarousel implements OnInit, OnDestroy {
   @Input() movies: Movie[] = [];
   @Input() title: string = '';
   counter: number = -1;

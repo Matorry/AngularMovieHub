@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Movie } from 'src/app/model/tmdb.model';
 
 @Component({
-  selector: 'app-card-popular',
-  templateUrl: './card-popular.component.html',
-  styleUrls: ['./card-popular.component.scss'],
+  selector: 'app-card-carousel',
+  templateUrl: './card-carousel.component.html',
+  styleUrls: ['./card-carousel.component.scss'],
 })
-export class CardPopularComponent {
+export class MovieCardCarousel {
   @Input() movie: Movie | null = null;
   backgroundImageUrl: string = '';
 

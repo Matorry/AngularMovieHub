@@ -3,7 +3,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { Movie, ReqWithDates } from 'src/app/model/tmdb.model';
 import { DictionaryService } from 'src/app/services/dictionary.service';
 import { MoviesService } from 'src/app/services/movies.service';
-import { StoreService } from 'src/app/services/store.service';
+import { StateService } from 'src/app/services/state.service';
 import { MoviesDashboardComponent } from './movies-dashboard.component';
 
 describe('Given the MoviesDashboardComponent', () => {
@@ -11,7 +11,7 @@ describe('Given the MoviesDashboardComponent', () => {
   let fixture: ComponentFixture<MoviesDashboardComponent>;
   let dictionaryService: jasmine.SpyObj<DictionaryService>;
   let movieService: jasmine.SpyObj<MoviesService>;
-  let storeService: jasmine.SpyObj<StoreService>;
+  let stateService: jasmine.SpyObj<StateService>;
 
   beforeEach(() => {
     dictionaryService = jasmine.createSpyObj('DictionaryService', [
@@ -19,14 +19,14 @@ describe('Given the MoviesDashboardComponent', () => {
       'dictionary',
     ]);
     movieService = jasmine.createSpyObj('MoviesService', ['fetchMoviesList']);
-    storeService = jasmine.createSpyObj('StoreService', ['getMovieList']);
+    stateService = jasmine.createSpyObj('StoreService', ['getMovieList']);
 
     TestBed.configureTestingModule({
       declarations: [MoviesDashboardComponent],
       providers: [
         { provide: DictionaryService, useValue: dictionaryService },
         { provide: MoviesService, useValue: movieService },
-        { provide: StoreService, useValue: storeService },
+        { provide: StateService, useValue: stateService },
       ],
     });
 
@@ -50,13 +50,13 @@ describe('Given the MoviesDashboardComponent', () => {
 
       dictionaryService.getKeys.and.returnValue(mockKeys);
       movieService.fetchMoviesList.and.returnValue(of(undefined));
-      storeService.getMovieList.and.returnValue(mockStoreData);
+      stateService.getMovieList.and.returnValue(mockStoreData);
 
       component.ngOnInit();
 
       expect(dictionaryService.getKeys).toHaveBeenCalled();
       expect(movieService.fetchMoviesList).toHaveBeenCalledTimes(3);
-      expect(storeService.getMovieList).toHaveBeenCalled();
+      expect(stateService.getMovieList).toHaveBeenCalled();
 
       expect(component.titles).toEqual(mockKeys);
       expect(component.popularMovies).toEqual(mockMovies[0]);

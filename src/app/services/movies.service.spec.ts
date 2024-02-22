@@ -3,26 +3,26 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { Movie, ReqWithDates } from '../model/tmdb.model';
 import { MoviesService } from './movies.service';
-import { StoreService } from './store.service';
+import { StateService } from './state.service';
 import { TmdbRepoService } from './tmdb.repo.service';
 
 describe('Given an instance of MoviesService', () => {
   let moviesService: MoviesService;
   let tmdbRepoServiceSpy: jasmine.SpyObj<TmdbRepoService>;
-  let storeServiceSpy: jasmine.SpyObj<StoreService>;
+  let stateServiceSpy: jasmine.SpyObj<StateService>;
 
   beforeEach(() => {
     tmdbRepoServiceSpy = jasmine.createSpyObj('TmdbRepoService', [
       'getMoviesList',
     ]);
-    storeServiceSpy = jasmine.createSpyObj('StoreService', ['setMovieList']);
+    stateServiceSpy = jasmine.createSpyObj('StoreService', ['setMovieList']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         MoviesService,
         { provide: TmdbRepoService, useValue: tmdbRepoServiceSpy },
-        { provide: StoreService, useValue: storeServiceSpy },
+        { provide: StateService, useValue: stateServiceSpy },
       ],
     });
 
@@ -63,7 +63,7 @@ describe('Given an instance of MoviesService', () => {
 
       expect(result).toBeUndefined();
 
-      expect(storeServiceSpy.setMovieList).toHaveBeenCalledWith(mockMovies[0]);
+      expect(stateServiceSpy.setMovieList).toHaveBeenCalledWith(mockMovies[0]);
     }));
 
     it('Then should handle errors and log them', fakeAsync(() => {
