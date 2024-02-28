@@ -1,16 +1,19 @@
 <article *ngIf="movie" class="background-container">
-  <div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="background-image"></div>
-  <ng-container *ngIf="isMovie(movie)">
-    <h3>{{ movie.title }}</h3>
-    <img [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : 'path-to-default-image'"
-      alt="{{ movie.title }}">
-    <p>{{ movie.overview | truncatePipe: 300 }}</p>
-  </ng-container>
-  <ng-container *ngIf="isTvShow(movie)">
-    <h3>{{ movie.name }}</h3>
-    <img [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : 'path-to-default-image'"
-      alt="{{ movie.name }}">
-    <p>{{ movie.overview | truncatePipe: 300 }}</p>
-  </ng-container>
-
+  <a href="detail/{{movie.id}}">
+    <div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="background-image"></div>
+    <ng-container *ngIf="isMovie(movie)">
+      <h3>{{ movie.title }}</h3>
+      <img
+        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : 'path-to-default-image'"
+        alt="{{ movie.title }}">
+      <p>{{ movie.overview | truncatePipe: 300 }}</p>
+    </ng-container>
+    <ng-container *ngIf="isTvShow(movie)">
+      <h3>{{ movie.name }}</h3>
+      <img
+        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : 'path-to-default-image'"
+        alt="{{ movie.name }}">
+      <p>{{ movie.overview | truncatePipe: 300 }}</p>
+    </ng-container>
+  </a>
 </article>

@@ -7,6 +7,7 @@ import { CardComponent } from './card/card.component';
 import { MovieListCarousel } from './list-carousel/list-carousel.component';
 import { ListComponent } from './list/list.component';
 import { MoviesDashboardComponent } from './movies-dashboard/movies-dashboard.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MoviesDashboardComponent } from './movies-dashboard/movies-dashboard.co
     MovieCardCarousel,
     MovieListCarousel,
     TruncatePipe,
+    DetailComponent,
   ],
   imports: [CommonModule, InfiniteScrollModule],
 })

@@ -18,14 +18,18 @@ article {
       rgb(20, 20, 20)
     );
   padding: 2rem;
-  img {
-    height: auto;
-    width: 200px;
-    border-radius: 10px;
-    margin-block: 1rem;
-  }
-  p {
-    width: 400px;
+  a {
+    text-decoration: none;
+    color: white;
+    img {
+      height: auto;
+      width: 200px;
+      border-radius: 10px;
+      margin-block: 1rem;
+    }
+    p {
+      width: 400px;
+    }
   }
 }
 

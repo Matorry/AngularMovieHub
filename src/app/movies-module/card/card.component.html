@@ -1,21 +1,23 @@
 <li *ngIf="movie">
-  <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
-  <ng-container *ngIf="isMovie(movie)">
-    <div *ngIf="movie.title">
-      <h3>{{ movie.title }}</h3>
-      <span>{{ movie.release_date }}</span>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="isTvShow(movie)">
-    <div *ngIf="movie.original_name; else showFallback">
-      <h3>{{ movie.name }}</h3>
-      <span>{{ movie.first_air_date }}</span>
-    </div>
-    <ng-template #showFallback>
-      <div>
-        <h3>No title available</h3>
+  <a href="detail/{{movie.id}}">
+    <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
+    <ng-container *ngIf="isMovie(movie)">
+      <div *ngIf="movie.title">
+        <h3>{{ movie.title }}</h3>
+        <span>{{ movie.release_date }}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isTvShow(movie)">
+      <div *ngIf="movie.original_name; else showFallback">
+        <h3>{{ movie.name }}</h3>
         <span>{{ movie.first_air_date }}</span>
       </div>
-    </ng-template>
-  </ng-container>
+      <ng-template #showFallback>
+        <div>
+          <h3>No title available</h3>
+          <span>{{ movie.first_air_date }}</span>
+        </div>
+      </ng-template>
+    </ng-container>
+  </a>
 </li>

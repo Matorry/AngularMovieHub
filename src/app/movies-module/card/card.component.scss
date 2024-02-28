@@ -6,26 +6,29 @@ li {
   scroll-snap-align: center;
   list-style: none;
   background-color: rgb(61, 61, 61);
-
-  img {
-    border-radius: 20px 20px 0px 0px;
-    height: 300px;
-    width: 200px;
-    object-fit: cover;
-  }
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-inline-start: 1rem;
-    height: 70px;
-    border-radius: 20px;
-    h3 {
-      font-size: 1rem;
+  a {
+    text-decoration: none;
+    color: white;
+    img {
+      border-radius: 20px 20px 0px 0px;
+      height: 300px;
+      width: 200px;
+      object-fit: cover;
     }
-    span {
-      font-size: 0.9rem;
-      width: 90%;
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-inline-start: 1rem;
+      height: 70px;
+      border-radius: 20px;
+      h3 {
+        font-size: 1rem;
+      }
+      span {
+        font-size: 0.9rem;
+        width: 90%;
+      }
     }
   }
 }
