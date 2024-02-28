@@ -23,9 +23,11 @@ describe('Given the StateService class', () => {
   describe('When updating State', () => {
     it('Then should setGenres state', () => {
       const mockData = {} as unknown as ReqWithDates;
+      let nowPlayingState: { name: string; path: string }[] = [];
       stateService.setGenres([{ name: 'Soy el path', path: 'soy/el/path' }]);
-
-      const nowPlayingState = stateService.getGenres().getValue();
+      stateService.getGenres().subscribe({
+        next: (data) => (nowPlayingState = data),
+      });
       expect(nowPlayingState).toEqual([
         { name: 'Soy el path', path: 'soy/el/path' },
       ]);
@@ -33,9 +35,12 @@ describe('Given the StateService class', () => {
 
     it('Then should setMovieList state', () => {
       const mockData = {} as unknown as ReqWithDates;
+      let popularState: ReqWithDates[] = [];
       stateService.setMovieList(mockData);
 
-      const popularState = stateService.getMovieList().getValue();
+      stateService.getMovieList().subscribe({
+        next: (data) => (popularState = data),
+      });
       expect(popularState).toEqual([mockData]);
     });
   });

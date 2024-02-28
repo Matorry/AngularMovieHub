@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Movie } from 'src/app/model/tmdb.model';
+import { Movie, Tv } from 'src/app/model/tmdb.model';
 
 @Component({
   selector: 'app-list-carousel',
@@ -7,7 +7,7 @@ import { Movie } from 'src/app/model/tmdb.model';
   styleUrls: ['./list-carousel.component.scss'],
 })
 export class MovieListCarousel implements OnInit, OnDestroy {
-  @Input() movies: Movie[] = [];
+  @Input() movies: (Movie | Tv)[] = [];
   @Input() title: string = '';
   counter: number = -1;
   intervalId: any;

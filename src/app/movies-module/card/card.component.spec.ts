@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Movie, Tv } from 'src/app/model/tmdb.model';
 import { CardComponent } from './card.component';
 
 describe('Given the CardComponent', () => {
@@ -30,6 +31,16 @@ describe('Given the CardComponent', () => {
     it('Then i call getImageUrl method without backdropPath', () => {
       const testUrl = component.getImageUrl('', 500);
       expect(testUrl).toEqual('');
+    });
+
+    it('Then i call isMovie method ', () => {
+      const testMovie = component.isMovie({} as Movie);
+      expect(testMovie).toEqual(false);
+    });
+
+    it('Then i call isTvShow method ', () => {
+      const testMovie = component.isTvShow({} as Tv);
+      expect(testMovie).toEqual(false);
     });
   });
 });

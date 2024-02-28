@@ -19,5 +19,12 @@ describe('Given the MenuComponent', () => {
     it('Then it should be created', () => {
       expect(component).toBeTruthy();
     });
+
+    it('Then handleChangeMode', () => {
+      const spy = spyOn(component.isMovies, 'emit');
+      component.stateIsMovies = true;
+      component.handleChangeMode();
+      expect(spy).toHaveBeenCalledWith(false);
+    });
   });
 });

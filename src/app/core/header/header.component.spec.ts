@@ -20,5 +20,10 @@ describe('Given the HeaderComponent', () => {
     it('Then it should be created', () => {
       expect(component).toBeTruthy();
     });
+
+    it('Then setMode method', () => {
+      component.setMode(false);
+      expect(component.stateIsMovies).toEqual(false);
+    });
   });
 });
