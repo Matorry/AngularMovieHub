@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from 'src/app/model/tmdb.model';
+import { Movie, Tv } from 'src/app/model/tmdb.model';
 
 @Component({
   selector: 'app-card-carousel',
@@ -7,8 +7,16 @@ import { Movie } from 'src/app/model/tmdb.model';
   styleUrls: ['./card-carousel.component.scss'],
 })
 export class MovieCardCarousel {
-  @Input() movie: Movie | null = null;
+  @Input() movie: Movie | Tv | null = null;
   backgroundImageUrl: string = '';
+
+  isMovie(item: Movie | Tv): item is Movie {
+    return (item as Movie).title !== undefined;
+  }
+
+  isTvShow(item: Movie | Tv): item is Tv {
+    return (item as Tv).original_name !== undefined;
+  }
 
   ngOnChanges() {
     this.updateBackgroundImage();

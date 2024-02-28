@@ -1,4 +1,4 @@
 <header>
   <h1>AngularMovieHub</h1>
-  <app-menu></app-menu>
+  <app-menu [stateIsMovies]="this.stateIsMovies" (isMovies)="setMode($event)"></app-menu>
 </header>

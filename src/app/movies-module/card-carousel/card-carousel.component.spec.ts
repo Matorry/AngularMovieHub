@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Movie } from 'src/app/model/tmdb.model';
+import { Movie, Tv } from 'src/app/model/tmdb.model';
 import { MovieCardCarousel } from './card-carousel.component';
 
 describe('Given the MovieCardCarousel', () => {
@@ -36,6 +36,16 @@ describe('Given the MovieCardCarousel', () => {
       expect(component.backgroundImageUrl).toBe(
         'https://image.tmdb.org/t/p/original/example2.jpg'
       );
+    });
+
+    it('Then i call isMovie method ', () => {
+      const testMovie = component.isMovie({} as Movie);
+      expect(testMovie).toEqual(false);
+    });
+
+    it('Then i call isTvShow method ', () => {
+      const testMovie = component.isTvShow({} as Tv);
+      expect(testMovie).toEqual(false);
     });
 
     afterEach(() => {
