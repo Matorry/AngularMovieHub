@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Genre, Movie, ReqWithDates } from '../model/tmdb.model';
+import { MovieCreditsData } from '../model/tmdb.crew.model';
+import { MovieDetail, SerieDetail } from '../model/tmdb.detail.model';
+import { Genre, Movie, ReqWithDates, VideoReq } from '../model/tmdb.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +33,38 @@ export class TmdbRepoService {
 
   getGenres(path: string): Observable<{ genres: Genre[] }> {
     return this.http.get<{ genres: Genre[] }>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getMovieDetail(path: string): Observable<MovieDetail> {
+    return this.http.get<MovieDetail>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getSerieDetail(path: string): Observable<SerieDetail> {
+    return this.http.get<SerieDetail>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getMovieCredits(path: string): Observable<MovieCreditsData> {
+    return this.http.get<MovieCreditsData>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getVideoList(path: string): Observable<VideoReq> {
+    return this.http.get<VideoReq>(`${this.url}${path}`, {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
+import { MovieCreditsData } from '../model/tmdb.crew.model';
+import { MovieDetail } from '../model/tmdb.detail.model';
+import { VideoReq } from '../model/tmdb.model';
 import { StateService } from './state.service';
 import { TmdbRepoService } from './tmdb.repo.service';
 import { TheMovieDBService } from './tmdb.service';
@@ -74,5 +77,45 @@ export class MoviesService {
       this.fetchMoviesList(genre.path).subscribe();
     });
     return genres.map((genre) => genre.name);
+  }
+
+  fetchMoviesDetails(id: string) {
+    const movieData: {
+      movie: MovieDetail;
+      credits: MovieCreditsData;
+      videos: VideoReq;
+    } = {
+      movie: {} as MovieDetail,
+      credits: {} as MovieCreditsData,
+      videos: {} as VideoReq,
+    };
+
+    this.repo.getMovieDetail(`movie/${id}?language=en-US`).subscribe({
+      next: (data) => {
+        movieData.movie = data;
+        this.repo
+          .getMovieCredits(`movie/${id}/credits?language=en-US`)
+          .subscribe({
+            next: (creditsData) => {
+              movieData.credits = creditsData;
+              this.repo
+                .getVideoList(`movie/${id}/videos?language=en-US`)
+                .subscribe({
+                  next: (data) => {
+                    movieData.videos = data;
+                    this.state.setMovieDetail(movieData);
+                    this.state.setIsLoadingt(false);
+                  },
+                });
+            },
+          });
+      },
+    });
+  }
+
+  fetchSeriesDetails(id: string) {
+    this.repo.getSerieDetail(`tv/${id}?language=en-US`).subscribe({
+      next: (data) => this.state.setSerieDetail(data),
+    });
   }
 }

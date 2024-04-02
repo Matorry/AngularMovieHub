@@ -41,12 +41,10 @@ export class MoviesDashboardComponent implements OnInit, OnDestroy {
 
   fetchMovies() {
     this.movieList = [];
-    this.titles = [];
     this.counter = 0;
     this.movieService.fetchGenders();
-
+    this.titles = this.tmdbService.getKeys(this.tmdbService.movies);
     if (this.stateIsMovies) {
-      this.titles = this.tmdbService.getKeys(this.tmdbService.movies);
       const movieRoutes = Object.values(this.tmdbService.movies);
       const observables = movieRoutes.map((route) =>
         this.movieService.fetchMoviesList(route)
@@ -59,7 +57,6 @@ export class MoviesDashboardComponent implements OnInit, OnDestroy {
         });
       });
     } else {
-      this.titles = this.tmdbService.getKeys(this.tmdbService.tv);
       const movieRoutes = Object.values(this.tmdbService.tv);
       const observables = movieRoutes.map((route) =>
         this.movieService.fetchMoviesList(route)

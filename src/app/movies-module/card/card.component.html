@@ -1,5 +1,5 @@
 <li *ngIf="movie">
-  <a href="detail/{{movie.id}}">
+  <a [routerLink]="['/detail', movie.id]">
     <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
     <ng-container *ngIf="isMovie(movie)">
       <div *ngIf="movie.title">

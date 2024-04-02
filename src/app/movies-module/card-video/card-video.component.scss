@@ -1,0 +1,19 @@
+li {
+  position: relative;
+  scroll-snap-align: center;
+  list-style: none;
+  width: 480px;
+  height: 360px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  img {
+    height: 48px;
+    cursor: pointer;
+  }
+}

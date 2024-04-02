@@ -1,1 +1,45 @@
-<p>detail works!</p>
+<div *ngIf="isMovieSelect && !isLoading && dataMovie">
+  <section>
+    <h2>{{dataMovie.movie.title}}</h2>
+    <span>{{!dataMovie.movie.adult? "All audiences" : "+18" }}</span>
+    <span>{{dataMovie.movie.vote_average}}/{{dataMovie.movie.vote_count}}</span>
+    <div [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original/' + dataMovie.movie.backdrop_path + ')'"
+      class="background-image"></div>
+    <div>
+      <div>
+        <img
+          [src]="dataMovie.movie.poster_path ? 'https://image.tmdb.org/t/p/original' + dataMovie.movie.poster_path : 'path-to-default-image'"
+          alt="{{dataMovie.movie.title}}">
+        <a *ngIf="dataMovie.movie.homepage" [href]="dataMovie.movie.homepage" target="_blank">Web</a>
+      </div>
+
+      <article>
+        <h3>Synopsis</h3>
+        <p>{{dataMovie.movie.overview}}</p>
+      </article>
+      <div>
+        <h3>Technical details</h3>
+        <span *ngIf="dataMovie.credits.crew">
+          Directed by: {{ getDirector(dataMovie.credits.crew) }}
+        </span>
+        <ul>
+          <span>Genres:</span>
+          <li *ngFor="let genre of dataMovie.movie.genres">{{ genre.name }}</li>
+        </ul>
+        <span>Release date: {{dataMovie.movie.release_date}}</span>
+        <span *ngIf="dataMovie.movie.budget">Budget: {{ dataMovie.movie.budget | budgetFormat }}$</span>
+        <span>Original language: {{dataMovie.movie.original_language}}</span>
+      </div>
+    </div>
+
+    <!--
+  Recommendations scroll? -->
+  </section>
+  <app-list-video [videos]="dataMovie.videos.results"></app-list-video>
+  <app-people-list [people]="dataMovie.credits.cast" [title]="'Cast'"></app-people-list>
+  <app-people-list [people]="dataMovie.credits.crew" [title]="'Crew'"></app-people-list>
+</div>
+
+<div *ngIf="isMovieSelect && isLoading">
+  <span>Loading...</span>
+</div>

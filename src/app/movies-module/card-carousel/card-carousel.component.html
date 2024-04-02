@@ -1,5 +1,5 @@
 <article *ngIf="movie" class="background-container">
-  <a href="detail/{{movie.id}}">
+  <a [routerLink]="['/detail', movie.id]">
     <div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="background-image"></div>
     <ng-container *ngIf="isMovie(movie)">
       <h3>{{ movie.title }}</h3>

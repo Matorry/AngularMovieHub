@@ -1,0 +1,8 @@
+<ul *ngIf="videos" infiniteScroll (scroll)="onVideosScroll()">
+  <app-card-video *ngFor="let video of videosList" [video]="video"
+    (openModal)="openVideoModal($event)"></app-card-video>
+
+</ul>
+
+
+<app-video-modal *ngIf="isModalOpen" [videoKey]="selectedVideoKey" (closeModalEvent)="closeModal()"></app-video-modal>

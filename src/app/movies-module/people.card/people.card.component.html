@@ -1,0 +1,19 @@
+<li *ngIf="person && isCastMember(person)">
+  <a [routerLink]="['/person', person.id]">
+    <img [src]="getImageUrl(person.profile_path, 200)" alt="{{ person.name }}" (error)="onImageError($event)">
+    <div>
+      <span>Name: {{person.name}}</span>
+      <span>Character: {{person.character}}</span>
+    </div>
+  </a>
+</li>
+
+<li *ngIf="person && isCrewMember(person)">
+  <a [routerLink]="['/person', person.id]">
+    <img [src]="getImageUrl(person.profile_path, 200)" alt="{{ person.name }}" (error)="onImageError($event)">
+    <div>
+      <span>Name: {{person.name}}</span>
+      <span>Job: {{person.job}}</span>
+    </div>
+  </a>
+</li>
