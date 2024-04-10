@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CastMember, CrewMember } from 'src/app/model/tmdb.crew.model';
+import {
+  CastMovieMember,
+  CrewMovieMember,
+} from 'src/app/model/tmdb.crew.model';
+import { GuestStars } from 'src/app/model/tmdb.detail.model';
 
 @Component({
   selector: 'app-people-list',
@@ -7,6 +11,6 @@ import { CastMember, CrewMember } from 'src/app/model/tmdb.crew.model';
   styleUrls: ['./people.list.component.scss'],
 })
 export class PeopleListComponent {
-  @Input() people: (CastMember | CrewMember)[] = [];
+  @Input() people: (CastMovieMember | CrewMovieMember | GuestStars)[] = [];
   @Input() title: string = '';
 }

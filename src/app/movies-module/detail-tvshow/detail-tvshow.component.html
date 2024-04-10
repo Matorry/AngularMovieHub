@@ -1,0 +1,56 @@
+<div *ngIf=" !isLoading && dataTvShow">
+  <section>
+    <h2>{{dataTvShow.serie.name}}</h2>
+    <span>{{!dataTvShow.serie.adult? "All audiences" : "+18" }}</span>
+    <span>{{dataTvShow.serie.vote_average}}/{{dataTvShow.serie.vote_count}}</span>
+    <div [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original/' + dataTvShow.serie.backdrop_path + ')'"
+      class="background-image"></div>
+    <div>
+      <div>
+        <img
+          [src]="dataTvShow.serie.poster_path ? 'https://image.tmdb.org/t/p/original' + dataTvShow.serie.poster_path : 'path-to-default-image'"
+          alt="{{dataTvShow.serie.name}}">
+        <a *ngIf="dataTvShow.serie.homepage" [href]="dataTvShow.serie.homepage" target="_blank">Web</a>
+      </div>
+
+      <article>
+        <h3>Synopsis</h3>
+        <p>{{dataTvShow.serie.overview}}</p>
+      </article>
+      <div>
+        <h3>Technical details</h3>
+        <ul>
+          <span>Genres:</span>
+          <li *ngFor="let genre of dataTvShow.serie.genres">{{ genre.name }}</li>
+        </ul>
+        <span>Release date: {{dataTvShow.serie.first_air_date}}</span>
+        <span>Seasons: {{ dataTvShow.serie.number_of_seasons }}</span>
+        <span>Episodes: {{ dataTvShow.serie.number_of_episodes }}</span>
+        <span>Original language: {{dataTvShow.serie.original_language}}</span>
+      </div>
+    </div>
+  </section>
+
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabChange($event)">
+    <mat-tab *ngFor="let season of dataTvShow.serie.seasons" [label]="season.season_number.toString()">
+      <ng-template mat-tab-label>{{ season.name }}</ng-template>
+      <div class="season-container">
+        <span>Release date: {{dataTvShow.currentSeason.air_date}}</span>
+        <span>Synopsis: {{dataTvShow.currentSeason.overview}}</span>
+        <h3>Episodes:</h3>
+        <ol>
+          <li *ngFor="let episode of dataTvShow.currentSeason.episodes">
+            <app-episode-detail [episode]="episode"></app-episode-detail>
+          </li>
+        </ol>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+
+</div>
+
+<div *ngIf=" isLoading">
+  <span>Loading...</span>
+</div>

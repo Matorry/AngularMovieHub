@@ -40,8 +40,6 @@ export class MoviesDashboardComponent implements OnInit, OnDestroy {
   }
 
   fetchMovies() {
-    this.movieList = [];
-    this.counter = 0;
     this.movieService.fetchGenders();
     this.titles = this.tmdbService.getKeys(this.tmdbService.movies);
     if (this.stateIsMovies) {

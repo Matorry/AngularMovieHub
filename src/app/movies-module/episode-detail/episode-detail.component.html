@@ -1,0 +1,10 @@
+<details [open]="showDetails" (toggle)="toggleDetails()">
+  <summary>{{episode.episode_number + "- " + episode.name}}</summary>
+  <span>{{episode.air_date}}</span>
+  <span>{{episode.overview}}</span>
+  <div *ngIf="showDetails">
+    <app-people-list [people]="episode.guest_stars" [title]="'Cast'"
+      *ngIf="episode.guest_stars.length > 0"></app-people-list>
+    <app-people-list [people]="episode.crew" [title]="'Crew'" *ngIf="episode.crew.length > 0"></app-people-list>
+  </div>
+</details>

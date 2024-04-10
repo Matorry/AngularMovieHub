@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { MovieCreditsData } from '../model/tmdb.crew.model';
-import { MovieDetail } from '../model/tmdb.detail.model';
+import { MovieDetail, Season, SerieDetail } from '../model/tmdb.detail.model';
 import { VideoReq } from '../model/tmdb.model';
 import { StateService } from './state.service';
 import { TmdbRepoService } from './tmdb.repo.service';
@@ -113,9 +113,46 @@ export class MoviesService {
     });
   }
 
-  fetchSeriesDetails(id: string) {
+  fetchSerieDetails(id: string) {
+    const serieData: {
+      serie: SerieDetail;
+      currentSeason: Season;
+    } = {
+      serie: {} as SerieDetail,
+      currentSeason: {} as Season,
+    };
     this.repo.getSerieDetail(`tv/${id}?language=en-US`).subscribe({
-      next: (data) => this.state.setSerieDetail(data),
+      next: (data) => {
+        serieData.serie = data;
+        this.repo
+          .getTvSeason(
+            `tv/${id}/season/${data.seasons[0].season_number}?language=en-US`
+          )
+          .subscribe({
+            next: (data) => (serieData.currentSeason = data),
+          });
+        this.state.setSerieDetail(serieData);
+        this.state.setIsLoadingt(false);
+      },
     });
+  }
+
+  changeSeason(id: number, season: string) {
+    let currentState: {
+      serie: SerieDetail;
+      currentSeason: Season;
+    };
+    this.state
+      .getSerieDetail()
+      .subscribe({ next: (data) => (currentState = data) });
+    this.repo
+      .getTvSeason(`tv/${id}/season/${season}?language=en-US`)
+      .subscribe({
+        next: (data) =>
+          this.state.setSerieDetail({
+            serie: currentState.serie,
+            currentSeason: data,
+          }),
+      });
   }
 }

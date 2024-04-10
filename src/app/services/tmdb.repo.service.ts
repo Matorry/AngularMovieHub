@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MovieCreditsData } from '../model/tmdb.crew.model';
-import { MovieDetail, SerieDetail } from '../model/tmdb.detail.model';
+import { MovieCreditsData, TvCreditsData } from '../model/tmdb.crew.model';
+import { MovieDetail, Season, SerieDetail } from '../model/tmdb.detail.model';
 import { Genre, Movie, ReqWithDates, VideoReq } from '../model/tmdb.model';
 
 @Injectable({
@@ -57,6 +57,22 @@ export class TmdbRepoService {
 
   getMovieCredits(path: string): Observable<MovieCreditsData> {
     return this.http.get<MovieCreditsData>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getTvCredits(path: string): Observable<TvCreditsData> {
+    return this.http.get<TvCreditsData>(`${this.url}${path}`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+  }
+
+  getTvSeason(path: string): Observable<Season> {
+    return this.http.get<Season>(`${this.url}${path}`, {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },

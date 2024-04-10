@@ -1,4 +1,4 @@
-<div *ngIf="isMovieSelect && !isLoading && dataMovie">
+<div *ngIf=" !isLoading && dataMovie">
   <section>
     <h2>{{dataMovie.movie.title}}</h2>
     <span>{{!dataMovie.movie.adult? "All audiences" : "+18" }}</span>
@@ -40,6 +40,6 @@
   <app-people-list [people]="dataMovie.credits.crew" [title]="'Crew'"></app-people-list>
 </div>
 
-<div *ngIf="isMovieSelect && isLoading">
+<div *ngIf=" isLoading">
   <span>Loading...</span>
 </div>

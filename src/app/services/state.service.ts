@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MovieCreditsData } from '../model/tmdb.crew.model';
-import { MovieDetail, SerieDetail } from '../model/tmdb.detail.model';
+import { MovieDetail, Season, SerieDetail } from '../model/tmdb.detail.model';
 import { ReqWithDates, VideoReq } from '../model/tmdb.model';
 
 @Injectable({
@@ -23,9 +23,13 @@ export class StateService {
     credits: {} as MovieCreditsData,
     videos: {} as VideoReq,
   });
-  private serieDetail$: BehaviorSubject<SerieDetail> = new BehaviorSubject(
-    {} as SerieDetail
-  );
+  private serieDetail$: BehaviorSubject<{
+    serie: SerieDetail;
+    currentSeason: Season;
+  }> = new BehaviorSubject({
+    serie: {} as SerieDetail,
+    currentSeason: {} as Season,
+  });
 
   getGenres(): Observable<{ name: string; path: string }[]> {
     return this.genres$.asObservable();
@@ -78,11 +82,17 @@ export class StateService {
     this.movieDetail$.next(newState);
   }
 
-  getSerieDetail(): Observable<SerieDetail> {
+  getSerieDetail(): Observable<{
+    serie: SerieDetail;
+    currentSeason: Season;
+  }> {
     return this.serieDetail$.asObservable();
   }
 
-  setSerieDetail(newState: SerieDetail): void {
+  setSerieDetail(newState: {
+    serie: SerieDetail;
+    currentSeason: Season;
+  }): void {
     this.serieDetail$.next(newState);
   }
 }

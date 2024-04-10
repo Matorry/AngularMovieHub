@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CastMember, CrewMember } from 'src/app/model/tmdb.crew.model';
+import {
+  CastMovieMember,
+  CrewMovieMember,
+} from 'src/app/model/tmdb.crew.model';
+import { GuestStars } from 'src/app/model/tmdb.detail.model';
 
 @Component({
   selector: 'app-people-card',
@@ -7,14 +11,18 @@ import { CastMember, CrewMember } from 'src/app/model/tmdb.crew.model';
   styleUrls: ['./people.card.component.scss'],
 })
 export class PeopleCardComponent {
-  @Input() person: CastMember | CrewMember | null = null;
+  @Input() person: CastMovieMember | CrewMovieMember | GuestStars | null = null;
 
-  isCastMember(person: CastMember | CrewMember): person is CastMember {
-    return (person as CastMember).character !== undefined;
+  isCastMember(
+    person: CastMovieMember | CrewMovieMember | GuestStars
+  ): person is CastMovieMember {
+    return (person as CastMovieMember).character !== undefined;
   }
 
-  isCrewMember(person: CastMember | CrewMember): person is CrewMember {
-    return (person as CrewMember).job !== undefined;
+  isCrewMember(
+    person: CastMovieMember | CrewMovieMember | GuestStars
+  ): person is CrewMovieMember {
+    return (person as CrewMovieMember).job !== undefined;
   }
 
   getImageUrl(imgPath: string | null, w: number): string {

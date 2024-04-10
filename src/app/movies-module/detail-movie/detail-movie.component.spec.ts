@@ -2,15 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { DetailComponent } from './detail.component';
+import { DetailMovieComponent } from './detail-movie.component';
 
 describe('DetailComponent', () => {
-  let component: DetailComponent;
-  let fixture: ComponentFixture<DetailComponent>;
+  let component: DetailMovieComponent;
+  let fixture: ComponentFixture<DetailMovieComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DetailComponent],
+      declarations: [DetailMovieComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -23,7 +23,7 @@ describe('DetailComponent', () => {
       ],
       imports: [HttpClientTestingModule],
     });
-    fixture = TestBed.createComponent(DetailComponent);
+    fixture = TestBed.createComponent(DetailMovieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

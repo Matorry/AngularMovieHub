@@ -1,13 +1,22 @@
 <li *ngIf="movie">
-  <a [routerLink]="['/detail', movie.id]">
-    <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
-    <ng-container *ngIf="isMovie(movie)">
-      <div *ngIf="movie.title">
+  <ng-container *ngIf="isMovie(movie)">
+    <a [routerLink]="['/movie', movie.id]">
+      <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
+      <div *ngIf="movie.title; else showFallback">
         <h3>{{ movie.title }}</h3>
         <span>{{ movie.release_date }}</span>
       </div>
-    </ng-container>
-    <ng-container *ngIf="isTvShow(movie)">
+      <ng-template #showFallback>
+        <div>
+          <h3>No title available</h3>
+          <span>{{ movie.release_date }}</span>
+        </div>
+      </ng-template>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="isTvShow(movie)">
+    <a [routerLink]="['/tvshow', movie.id]">
+      <img [src]="getImageUrl(movie.poster_path, 200)" alt="Movie poster">
       <div *ngIf="movie.original_name; else showFallback">
         <h3>{{ movie.name }}</h3>
         <span>{{ movie.first_air_date }}</span>
@@ -18,6 +27,6 @@
           <span>{{ movie.first_air_date }}</span>
         </div>
       </ng-template>
-    </ng-container>
-  </a>
+    </a>
+  </ng-container>
 </li>
